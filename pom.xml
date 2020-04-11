@@ -80,6 +80,7 @@
 			<groupId>com.spotify</groupId>
 			<artifactId>dockerfile-maven-plugin</artifactId>
 			<version>${docker.plugin.version}</version>
+
 			<executions>
                  <execution>
                      <id>build-image</id>
@@ -88,11 +89,23 @@
                          <goal>build</goal>
                      </goals>
                  </execution>
+                 <execution>
+				      <id>tag-image</id>
+				      <phase>package</phase>
+				      <goals>
+				        <goal>tag</goal>
+				      </goals>
+
+   				 </execution>
+   
+                 
              </executions>
              <configuration>
+             	<serverId>docker-hub</serverId>
              	<skipDockerInfo>true</skipDockerInfo>
-             	<repository>spring-rest-docker</repository> <!-- ${project.artifactId} is a good choice -->
- 			 	<tag>${project.version}</tag>
+             	<repository>subodhchavan/apps</repository> <!-- ${project.artifactId} is a good choice -->
+ 			 	<tag>spring-rest-docker</tag>
+ 			 	<useMavenSettingsForAuth>true</useMavenSettingsForAuth> 
                  <buildArgs>
                  	<JAR_NAME>${project.artifactId}-${project.version}.jar</JAR_NAME>
                  	<PROFILE>dev</PROFILE>
